@@ -3,7 +3,11 @@ import express from "express";
 import helmet from "helmet";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import morgan from "morgan";
+import dotenv from 'dotenv';
 import { services } from "./endpoints";
+
+//For env File 
+dotenv.config();
 
 // Create an instance of Express app
 const app = express();
