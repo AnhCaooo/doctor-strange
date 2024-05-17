@@ -2,10 +2,10 @@
   "name": "doctor-strange",
   "version": "1.0.0",
   "description": "An API gateway for electric application ",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node index.ts",
+    "dev": "nodemon index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Anh Cao",

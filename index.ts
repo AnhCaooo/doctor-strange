@@ -3,6 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import morgan from "morgan";
+import { services } from "./endpoints";
 
 // Create an instance of Express app
 const app = express();
@@ -79,7 +80,7 @@ services.forEach(({ route, target }) => {
 });
 
 // Define port for Express server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 
 // Start Express server
 app.listen(PORT, () => {

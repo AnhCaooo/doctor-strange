@@ -1,8 +1,8 @@
 // Define routes and corresponding microservices
-const services = [
+export const services = [
 	{
 		route: "/stormbreaker",
-		target: "https://your-deployed-service.herokuapp.com/stormbreaker",
+		target: "http://localhost:8080",
 	},
 	// Add more services as needed either deployed or locally.
 ];
