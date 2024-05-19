@@ -4,7 +4,7 @@ import helmet from "helmet";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import morgan from "morgan";
 import dotenv from 'dotenv';
-import { services } from "./endpoints";
+import { services } from "./routes/routes";
 
 //For env File 
 dotenv.config();
