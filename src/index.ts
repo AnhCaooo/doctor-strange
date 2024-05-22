@@ -44,12 +44,12 @@ services.forEach(({ route, target }) => {
         },
     };
 
-    // Apply rate limiting and timeout middleware before proxying
+    // Apply rate limiting and timeout middleware before proxy
     app.use(route, rateLimitAndTimeout, createProxyMiddleware(proxyOptions));
 });
 
 // Define port for Express server
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 
 // Start Express server
 app.listen(PORT, () => {
