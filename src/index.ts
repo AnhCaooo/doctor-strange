@@ -49,7 +49,7 @@ services.forEach(({ route, target }) => {
 });
 
 // Define port for Express server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 
 // Start Express server
 app.listen(PORT, () => {
