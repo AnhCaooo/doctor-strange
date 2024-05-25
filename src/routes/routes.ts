@@ -1,8 +1,10 @@
+import { Service } from "models/routes";
+
 // Define routes and corresponding microservices
-export const services = [
+export const services: Service[] = [
 	{
 		route: "/stormbreaker",
-		target: "http://localhost:5001",
+		target: "http://stormbreaker:5001",
 	},
 	// Add more services as needed either deployed or locally.
 ];
