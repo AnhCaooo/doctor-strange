@@ -19,7 +19,7 @@ COPY tsconfig.json ./tsconfig.json
 # # Then, run the build command, this will compile the ts files into javascript files
 RUN npm run build
 
-# our api gateway server is running on port 5000 within the container, so need to expose it
+# our api gateway server is running on port 5002 within the container, so need to expose it
 EXPOSE 5002
 
 # the command that starts our api gateway server
