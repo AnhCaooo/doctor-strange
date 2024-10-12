@@ -1,5 +1,5 @@
 # pull the Node.js Docker image
-FROM --platform=linux/amd64 node:alpine
+FROM node:alpine
 
 # create the directory inside the container
 WORKDIR /usr/src/doctor-strange
