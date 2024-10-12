@@ -10,6 +10,10 @@ export const services: Service[] = [
 	{
 		route: "/electric-push-notifications",
 		target: "http://electric-push-notifications:5003"
+	},
+	{
+		route: "/electric-mongo",
+		target: "http://electric-mongo:27017"
 	}
 
 ];
