@@ -8,8 +8,8 @@ export const services: Service[] = [
 		target: "http://stormbreaker:5001",
 	}, 
 	{
-		route: "/electric-push-notifications",
-		target: "http://electric-push-notifications:5003"
+		route: "/electric-notifications",
+		target: "http://electric-notifications:5003"
 	},
 	{
 		route: "/electric-mongo",
