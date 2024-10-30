@@ -4,16 +4,19 @@ import { Service } from "models/routes";
 export const services: Service[] = [
 	// Add more services as needed either deployed or locally.
 	{
-		route: "/stormbreaker",
+		path: "/stormbreaker",
 		target: "http://stormbreaker:5001",
 	}, 
 	{
-		route: "/electric-notifications",
+		path: "/electric-notifications",
 		target: "http://electric-notifications:5003"
 	},
 	{
-		route: "/electric-mongo",
+		path: "/electric-auth",
+		target: "http://electric-auth:5004"
+	},
+	{
+		path: "/electric-mongo",
 		target: "http://electric-mongo:27017"
-	}
-
+	},
 ];

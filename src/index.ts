@@ -34,18 +34,18 @@ setInterval(() => {
 app.use(rateLimitAndTimeout);
 
 // Set up proxy middleware for each microservice
-services.forEach(({ route, target }) => {
+services.forEach(({ path, target }) => {
     // Proxy options
     const proxyOptions = {
         target,
         changeOrigin: true,
         pathRewrite: {
-            [`^${route}`]: "",
+            [`^${path}`]: "",
         },
     };
 
     // Apply rate limiting and timeout middleware before proxy
-    app.use(route, rateLimitAndTimeout, createProxyMiddleware(proxyOptions));
+    app.use(path, rateLimitAndTimeout, createProxyMiddleware(proxyOptions));
 });
 
 // Define port for Express server
