@@ -20,3 +20,7 @@ export const services: Service[] = [
 		target: "http://electric-mongo:27017"
 	},
 ];
+
+
+// Define public routes (route to specific service) that do not require authentication
+export const publicPaths = ['/electric-auth'];
