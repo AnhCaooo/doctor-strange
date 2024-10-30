@@ -3,13 +3,13 @@ import express from "express";
 import helmet from "helmet";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import morgan from "morgan";
-import dotenv from 'dotenv';
 import { services } from "./routes/routes";
 import { INTERVAL_TIME } from "./constant/requests";
 import { rateLimitAndTimeout } from "./middleware/middleware";
+import { loadConfig } from "./handlers/config";
 
-//For env File 
-dotenv.config();
+// Load env config file
+const envConfig = loadConfig()
 
 // Create an instance of Express app
 const app = express();
