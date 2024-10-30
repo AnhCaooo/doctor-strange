@@ -3,13 +3,18 @@ import express from "express";
 import helmet from "helmet";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import morgan from "morgan";
-import dotenv from 'dotenv';
 import { services } from "./routes/routes";
 import { INTERVAL_TIME } from "./constant/requests";
-import { rateLimitAndTimeout } from "./middleware/middleware";
+import { rateLimitAndTimeoutMiddleware, authMiddleware } from "./middleware/middleware";
+import { loadConfig } from "./handlers/config";
 
-//For env File 
-dotenv.config();
+// Load env config file
+const envConfig = loadConfig()
+
+/**
+ * Object to store request counts for each IP address
+ */
+const requestCounts: Record<string, number> = {};
 
 // Create an instance of Express app
 const app = express();
@@ -20,9 +25,6 @@ app.use(helmet()); // Add security headers
 app.use(morgan("combined")); // Log HTTP requests
 app.disable("x-powered-by"); // Hide Express server information
 
-// Object to store request counts for each IP address
-const requestCounts: any = {};
-
 // Reset request count for each IP address every 'interval' milliseconds
 setInterval(() => {
     Object.keys(requestCounts).forEach((ip) => {
@@ -30,22 +32,26 @@ setInterval(() => {
     });
 }, INTERVAL_TIME);
 
-// Apply the rate limit and timeout middleware to the proxy
-app.use(rateLimitAndTimeout);
-
 // Set up proxy middleware for each microservice
-services.forEach(({ route, target }) => {
+services.forEach(({ path, target }) => {
     // Proxy options
     const proxyOptions = {
         target,
         changeOrigin: true,
         pathRewrite: {
-            [`^${route}`]: "",
+            [`^${path}`]: "",
         },
     };
 
-    // Apply rate limiting and timeout middleware before proxy
-    app.use(route, rateLimitAndTimeout, createProxyMiddleware(proxyOptions));
+    // Apply middleware chain functions. 
+    // 1. rate limiting and timeout middleware before proxy
+    // 2. handle auth middleware
+    // 3. create proxy middleware
+    app.use(path, 
+        rateLimitAndTimeoutMiddleware(requestCounts), 
+        authMiddleware(envConfig.supabase.jwt_token),
+        createProxyMiddleware(proxyOptions)
+    );
 });
 
 // Define port for Express server

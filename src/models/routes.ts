@@ -3,13 +3,13 @@
  */
 export interface Service {
     /**
-     * The URL path segment used by the API gateway to route requests to the backend service.
-     * When a user accesses `http://localhost/<route>`, 
+     * The URL path segment used by the API gateway to route requests to specific backend service.
+     * When a user accesses `http://localhost/<path>`, 
      * the API gateway will route the request to the corresponding backend service.
      * 
      * Example: "/stormbreaker"
      */
-    route: string;
+    path: string;
     /**
      * The actual destination of the backend service, 
      * constructed from the container name and its port.
