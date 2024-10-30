@@ -5,7 +5,7 @@ import { createProxyMiddleware } from "http-proxy-middleware";
 import morgan from "morgan";
 import { services } from "./routes/routes";
 import { INTERVAL_TIME } from "./constant/requests";
-import { rateLimitAndTimeout } from "./middleware/middleware";
+import { rateLimitAndTimeoutMiddleware, authMiddleware } from "./middleware/middleware";
 import { loadConfig } from "./handlers/config";
 
 // Load env config file
@@ -45,10 +45,11 @@ services.forEach(({ path, target }) => {
 
     // Apply middleware chain functions. 
     // 1. rate limiting and timeout middleware before proxy
-    // 2. create proxy  middleware
-    // 3. handle auth middleware
+    // 2. handle auth middleware
+    // 3. create proxy middleware
     app.use(path, 
-        rateLimitAndTimeout(requestCounts), 
+        rateLimitAndTimeoutMiddleware(requestCounts), 
+        authMiddleware(envConfig.supabase.jwt_token),
         createProxyMiddleware(proxyOptions)
     );
 });
