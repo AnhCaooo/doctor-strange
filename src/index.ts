@@ -11,6 +11,11 @@ import { loadConfig } from "./handlers/config";
 // Load env config file
 const envConfig = loadConfig()
 
+/**
+ * Object to store request counts for each IP address
+ */
+const requestCounts: Record<string, number> = {};
+
 // Create an instance of Express app
 const app = express();
 
@@ -20,18 +25,12 @@ app.use(helmet()); // Add security headers
 app.use(morgan("combined")); // Log HTTP requests
 app.disable("x-powered-by"); // Hide Express server information
 
-// Object to store request counts for each IP address
-const requestCounts: any = {};
-
 // Reset request count for each IP address every 'interval' milliseconds
 setInterval(() => {
     Object.keys(requestCounts).forEach((ip) => {
         requestCounts[ip] = 0; // Reset request count for each IP address
     });
 }, INTERVAL_TIME);
-
-// Apply the rate limit and timeout middleware to the proxy
-app.use(rateLimitAndTimeout);
 
 // Set up proxy middleware for each microservice
 services.forEach(({ path, target }) => {
@@ -44,8 +43,14 @@ services.forEach(({ path, target }) => {
         },
     };
 
-    // Apply rate limiting and timeout middleware before proxy
-    app.use(path, rateLimitAndTimeout, createProxyMiddleware(proxyOptions));
+    // Apply middleware chain functions. 
+    // 1. rate limiting and timeout middleware before proxy
+    // 2. create proxy  middleware
+    // 3. handle auth middleware
+    app.use(path, 
+        rateLimitAndTimeout(requestCounts), 
+        createProxyMiddleware(proxyOptions)
+    );
 });
 
 // Define port for Express server
