@@ -31,6 +31,7 @@ jobs:
         run: |
           echo "list all directories"
           pwd 
+          ls -la
           touch .env
           echo ${{ secrets.ENV_CONFIGURATION }} >> .env
           cat .env
