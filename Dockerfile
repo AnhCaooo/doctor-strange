@@ -2,7 +2,7 @@
 FROM --platform=linux/amd64 node:alpine
 
 # create the directory inside the container
-WORKDIR /usr/src/doctor-strange
+WORKDIR /usr/src/
 
 # copy the package.json files from local machine to the workdir in container
 COPY package*.json ./
@@ -16,7 +16,10 @@ COPY src ./src
 # Copy tsconfig.json to base image too
 COPY tsconfig.json ./tsconfig.json
 
-# # Then, run the build command, this will compile the ts files into javascript files
+# COPY dotenv file  
+COPY .env ./.env
+
+# Then, run the build command, this will compile the ts files into javascript files
 RUN npm run build
 
 # our api gateway server is running on port 5002 within the container, so need to expose it
