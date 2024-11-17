@@ -29,6 +29,8 @@ jobs:
       - name: Generate environment configuration
         id: generate-environment-configuration
         run: |
+          echo "list all directories"
+          pwd 
           touch .env
           echo ${{ secrets.ENV_CONFIGURATION }} >> .env
           cat .env

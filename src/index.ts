@@ -10,6 +10,7 @@ import { loadConfig } from "./handlers/config";
 
 // Load env config file
 const envConfig = loadConfig()
+console.log("envConfig", envConfig)
 if (!envConfig) {
     throw new Error("failed to load env config file.")
 }
