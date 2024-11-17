@@ -30,6 +30,7 @@ jobs:
         id: generate-environment-configuration
         run: |
           echo "${{ secrets.ENV_CONFIGURATION }}" > .env
+          echo .env
 
       - name: Build Docker Image
         id: test-and-build-docker-image
