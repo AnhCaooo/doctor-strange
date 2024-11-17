@@ -73,7 +73,7 @@ export function authMiddleware(jwt_secret: string) {
             const _ = jwt.verify(token, jwt_secret); // Verify the token
             next(); // Proceed if the token is valid
         } catch (error) {
-            console.error("Permission Denied: Invalid token")
+            console.error("Permission Denied: Invalid token", error)
             return res
                 .status(403)
                 .json({ message: "Permission Denied: Invalid token" });
