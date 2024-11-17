@@ -6,7 +6,7 @@ export function loadConfig(): Config {
     dotenv.config()
     return {
         supabase: {
-            jwt_token: process.env.SUPBASE_JWT_SECRET || '',
+            jwt_token: process.env.SUPBASE_JWT_SECRET ?? '',
         }
     }
 }

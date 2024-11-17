@@ -10,6 +10,9 @@ import { loadConfig } from "./handlers/config";
 
 // Load env config file
 const envConfig = loadConfig()
+if (!envConfig) {
+    throw new Error("failed to load env config file.")
+}
 
 /**
  * Object to store request counts for each IP address
