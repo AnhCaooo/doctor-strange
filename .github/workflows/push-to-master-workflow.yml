@@ -29,12 +29,8 @@ jobs:
       - name: Generate environment configuration
         id: generate-environment-configuration
         run: |
-          echo "list all directories"
-          pwd 
-          ls -la
           touch .env
-          echo ${{ secrets.ENV_CONFIGURATION }} >> .env
-          cat .env
+          echo "${{ secrets.ENV_CONFIGURATION }}" >> .env
 
       - name: Build Docker Image
         id: test-and-build-docker-image
