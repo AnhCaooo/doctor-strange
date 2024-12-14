@@ -1,5 +1,5 @@
 # AnhCao 2024
-FROM --platform=linux/amd64 node:alpine
+FROM node:alpine
 
 LABEL maintainer="Anh Cao <anhcao4922@gmail.com>"
 
