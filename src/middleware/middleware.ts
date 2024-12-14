@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { RATE_LIMIT } from "../constant/requests";
 import jwt from "jsonwebtoken";
-import { publicPaths } from "../routes/routes";
+import { nonAuthRequiredPaths } from "../routes/routes";
 
 /**
  * rate limiting and timeout handling middleware
@@ -55,7 +55,7 @@ export function rateLimitAndTimeoutMiddleware(
 export function authMiddleware(jwt_secret: string) {
     return (req: Request, res: Response, next: NextFunction) => {
         // Allow access to public routes without authentication
-        if (publicPaths.includes(req.baseUrl)) {
+        if (nonAuthRequiredPaths.includes(req.baseUrl)) {
             return next();
         }
         const authHeader = req.headers.authorization;

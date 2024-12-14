@@ -19,8 +19,17 @@ export const services: Service[] = [
 		path: "/electric-mongo",
 		target: "http://electric-mongo:27017"
 	},
+	{
+		path: "/electric-rabbitmq-ui",
+		target: "http://electric-rabbitmq:15672"
+	},
+	{
+		path: "/electric-rabbitmq",
+		target: "http://electric-rabbitmq:5672"
+	},
+
 ];
 
 
 // Define public routes (route to specific service) that do not require authentication
-export const publicPaths = ['/electric-auth'];
+export const nonAuthRequiredPaths = ['/electric-auth', '/electric-rabbitmq-ui'];
